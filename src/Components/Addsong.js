@@ -38,6 +38,7 @@ import { Multiselect } from 'multiselect-react-dropdown';
         this.onChangeSongDateofRelease = this.onChangeSongDateofRelease.bind(this);
         // this.onChangeArtistName=this.onChangeArtistName.bind(this);
         this.onChangeRating=this.onChangeRating.bind(this);
+        this.onSelect=this.onSelect.bind(this);
         // this.onChangeTodoPriority = this.onChangeTodoPriority.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
        
@@ -47,6 +48,8 @@ import { Multiselect } from 'multiselect-react-dropdown';
             artistname:'',
             rate:0,
             options:[],
+            csid:'',
+            artistlist:[],
             message:'',
             // todo_priority: '',
             todo_completed: false
@@ -102,6 +105,12 @@ import { Multiselect } from 'multiselect-react-dropdown';
     });
 }
 onSelect(selectedList, selectedItem) {
+    this.setState(
+        {
+            artistlist:selectedList
+        }
+    )
+    
    console.log(selectedList) ;
 }
  
@@ -147,15 +156,47 @@ onSelect(selectedList, selectedItem) {
         };
         axios.post('http://localhost:4000/add123',songs)
             .then(res => console.log(res.data));
-        this.setState({
-            song: '',
-            dor: '',
-            artistname:'',
-            rate:0,
-            // todo_priority: '',
-            todo_completed: false
-        })}
+        };
+            console.log(this.state.artistlist);
+        axios.get('http://localhost:4000/newsongsid')
+        .then(response => {
+            console.log(response);
+            
+            this.setState({ csid: response.data.rows[0].max+1});
+            console.log('first');
+            console.log(this.state.csid);
+            var i;
+            for(i=0;i<this.state.artistlist.length;i++)
+        {   
+            // console.log(this.state.csid);
+            axios.post('http://localhost:4000/addsongartist',{ssid:this.state.csid,caid:this.state.artistlist[i].id})
+            .then(res => console.log(res.data));
+        // this.setState({
+        //     song: '',
+        //     dor: '',
+        //     artistname:'',
+        //     rate:0,
+        //     // todo_priority: '',
+        //     todo_completed: false
+        // })
+    };
+        })
+        .catch(function (error){
+            console.log(error);
+        });
+        
+        
+    this.setState({
+        song: '',
+        dor: '',
+        artistname:'',
+        rate:0,
+        // todo_priority: '',
+        todo_completed: false
+    })
     }
+    
+    
     // componentDidMount()
     // {
     //     this.fetchData();
@@ -198,9 +239,7 @@ onSelect(selectedList, selectedItem) {
                                 // value={this.state.artistname}
                                 // onChange={this.onChangeArtistName}
                                 />
-                                <span>
-                                    <Homie/>
-                                </span>
+                            
                     </div>
                     <div className="form-group">
                         <label>Rating: </label>

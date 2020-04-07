@@ -37,7 +37,7 @@ const Styles = styled.div`
     right: 25%;
   }
   .form-inline .form-control {
-    margin-left: 600px;
+    margin-left: 800px;
     display: inline-block;
     width: auto;
     vertical-align: middle;
@@ -47,6 +47,15 @@ const Styles = styled.div`
     border-radius:20px;
     padding: 6px 20px;
 }
+@media (min-width:768px) and (max-width:1024px)
+{
+  .form-inline .form-control {
+    margin-left: 400px;
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+}
 @media (max-width:575px)
 {
     a, .navbar-nav, .navbar-light .nav-link {
@@ -54,6 +63,13 @@ const Styles = styled.div`
         font-size:20px;
         &:hover { color: white; }
       }
+      .form-inline .form-control {
+        margin-left: 20px;
+        display: inline-block;
+        width: auto;
+        vertical-align: middle;
+    }
+
 }
 
 

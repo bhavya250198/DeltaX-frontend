@@ -67,15 +67,21 @@ class OtherPage1 extends  Component {
         return (
             <div style={MyStyle}>
                 <h3>Top 10 Artists</h3>
-                <Router>
+            
          <span>
-          <Link to ="/artist/addartist">  <div className="form-group">
+         <Nav.Link  href="/artist/addartist"> <Button className="btn btn-success"  type="click" >
+        <span className="zehnaseeb"> <font color="white">
+            Add Artists 
+          </font></span>
+        </Button>
+        </Nav.Link>
+          {/* <Link to ="">  <div className="form-group">
                         <input type="submit" value="Add Artist" className="btn btn-primary" />
-                    </div></Link>
+                    </div></Link> */}
          </span>
         
 
-      </Router>
+      
                 <table className="table table-striped" style={{ marginTop: 20 }} >
                     <thead>
                         <tr>

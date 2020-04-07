@@ -10,6 +10,7 @@ import axios from 'axios';
         this.onChangeArtistName = this.onChangeArtistName.bind(this);
         this.onChangeDateOfBirth = this.onChangeDateOfBirth.bind(this);
         this.onChangeRating=this.onChangeRating.bind(this);
+        this.onChangeBio=this.onChangeBio.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
@@ -17,6 +18,7 @@ import axios from 'axios';
             dob: '',
         
             rate:'',
+            bio:'',
             message:'',
             todo_completed: false
         }
@@ -38,6 +40,11 @@ import axios from 'axios';
         rate: e.target.value
     });
 }
+onChangeBio(e) {
+    this.setState({
+            bio: e.target.value
+    });
+}
 
 
     
@@ -55,6 +62,10 @@ import axios from 'axios';
         {
             this.setState({message:"Rate cannot be null"});
         }
+        else if(!this.state.bio)
+        {
+            this.setState({message:"Bio cannot be null"});
+        }
         else
         { 
             console.log(`Form submitted:`);
@@ -65,6 +76,7 @@ import axios from 'axios';
             name: this.state.name,
             dob: this.state.dob,
             rate: this.state.rate,
+            bio:this.state.bio,
             todo_completed: this.state.todo_completed
         };
         axios.post('http://localhost:4000/add', artist)
@@ -74,6 +86,7 @@ import axios from 'axios';
             name: '',
             dob: '',
             rate:'',
+            bio:'',
             todo_completed: false
         })}
        
@@ -110,6 +123,15 @@ import axios from 'axios';
                                 className="form-control"
                                 value={this.state.rate}
                                 onChange={this.onChangeRating}
+                                />
+                    </div>
+                    <div className="form-group">
+                        <label>Bio: </label>
+                        <input 
+                                type="text" 
+                                className="form-control"
+                                value={this.state.bio}
+                                onChange={this.onChangeBio}
                                 />
                     </div>
                         <div>

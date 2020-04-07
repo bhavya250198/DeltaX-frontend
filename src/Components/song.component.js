@@ -14,12 +14,12 @@ class Song extends Component {
     }
     changeRating( newRating, name ) {
         axios.post('http://localhost:4000/songs/rate',{ newrating: newRating,
-        sid:this.props.song.sid,
+        sid:this.props.song.sid
 
     }
         )
-            .then(res =>{ console.log('rating response',res.data);
-            if(res.data.errno)
+            .then(response =>{ console.log('rating response',response.data);
+            if(response.data.errno)
             {
                 alert('Could not rate');
             }
@@ -35,14 +35,14 @@ class Song extends Component {
        
         return(
             <tr>
-                {/* <td>{this.props.song.sid}</td> */}
+                <td>{this.props.song.sid}</td>
                 <td>{this.props.song.song}</td>
                 <td>{this.props.song.dor}</td>
                 <td>{this.props.song.artist}</td>
                 <td> <StarRatings
             starDimension="20px"
-            starSpacing="15px"
-          rating={(this.props.song.rate)}
+            starSpacing="5px"
+          rating={this.props.song.rate}
           starRatedColor="gold"
           changeRating={this.changeRating}
           numberOfStars={5}
@@ -99,18 +99,18 @@ class OtherPage extends  Component {
             <div style={MyStyle}>
                 <h3>Top 10 Songs</h3>
                 
-                <Link to ="/addsongs" className="nav-link"> <Button className="btn btn-success"  >
-        <span className="zehnaseeb"> <font color="white">
+                <Nav.Link href="/addsongs"> <Button className="btn btn-success"  >
+         <font color="white">
             Add Songs 
-          </font></span>
+          </font>
         </Button>
-        </Link>
+        </Nav.Link>
 
       
                 <table className="table table-striped" style={{ marginTop: 20 }} >
                     <thead>
                         <tr>
-                            {/* <th>Track Number</th> */}
+                            <th>Track Number</th>
                             <th>Title</th>
                             <th>Date of Release</th>
                             <th>Artist</th>
